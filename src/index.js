@@ -5,8 +5,8 @@ const NAMED_SEGMENT = ':';
 const ASSIGNMENT = '=';
 const OR_SIGN = '|';
 const MATCH_ANY = '*';
-const REGEX_MATCH_ANY = /^\/?([a-zA-Z0-9-_/])\/?$/;
-const REGEX_SPACES = /\s/;
+const STR_REGEX_MATCH_ANY = '[a-zA-Z0-9-_/]+';
+const REGEX_SPACES_AND_TRAILING_SLASHES = /^\/|\s|\/$/g;
 const VALID_SEGMENT = /^[a-z0-9_-]+$/i;
 const ANY_VALID_SEGMENT = '[a-zA-Z0-9_-]+';
 const IS_BEETWEN_PARENTHESES = /^\((.*)\)$/;
@@ -16,54 +16,92 @@ module.exports = RouteParser;
 
 
 function RouteParser(route = '') {
-  const { regex, path } = compileRoute(route);
+  const { regex, map: { segments, namedSegments } } = compileRoute(route);
 
-  return Object.freeze({ match });
+  return Object.freeze({
 
-  function match(route = '') {
-    const regexResult = regex.exec(route);
+    parse(route = '') {
+      const regexResult = regex.exec(route);
 
-    if (regexResult === null) return false;
-    return regexResult[0]
-      .split(DELIMETER)
-      .reduce((result, segment, i) => {
-        result[path[i]] = segment;
-        return result;
+      if (regexResult === null) {
+        return false;
+      }
+
+      const result = namedSegments.reduce((_result, namedSegment) => {
+        _result[namedSegment[0]] = regexResult[namedSegment[1]];
+
+        return _result;
       }, {});
-  }
+
+      return result;
+    },
+
+    encode(obj) {
+      return segments
+        .map((segment, i) => {
+          if (typeof namedSegments[i] === 'number') {
+            return obj[segment];
+          }
+
+          return segment;
+        })
+        .join(DELIMETER);
+    }
+  });
 }
 
 function compileRoute(route) {
-  if (route === MATCH_ANY || route === DELIMETER) {
-    return REGEX_MATCH_ANY;
+  let _route = route;
+
+  if (route === DELIMETER) {
+    _route = MATCH_ANY;
   }
 
   try {
-    const segments = route
-      .replace(REGEX_SPACES, '')
+    const segments = _route
+      .replace(REGEX_SPACES_AND_TRAILING_SLASHES, '')
       .split(DELIMETER)
       .map(parseSegment);
 
     return createRegex(segments);
   } catch (error) {
-    return error;
+    throw new TypeError(`Invalid Route: ${route}`);
   }
 }
 
 function createRegex(segments) {
   const regexGroups = [];
-  const path = segments.map((segment) => {
-    regexGroups.push(`(${segment[1] || segment[0]})`);
-    return segment[0];
-  });
-  const regex = new RegExp(`^/?${regexGroups.join(DELIMETER)}$`);
+  const map = segments.reduce(mapSegments, { segments: [], namedSegments: [] });
+  const regex = new RegExp(`^/?${regexGroups.join(DELIMETER)}/?$`);
 
-  return { path, regex };
+  return { map, regex };
+
+  function mapSegments(result, segment, i) {
+    let regexGroup;
+    const [segmentName, segmentRegex] = segment;
+
+    if (segmentRegex) {
+      regexGroup = segmentRegex;
+
+      // create a map of named segments
+      // which maps to regex exec result, this is why we sum 1 to the index
+      result.namedSegments.push([segmentName, i + 1]);
+    } else {
+      regexGroup = segmentName;
+    }
+
+    // create regex groups
+    regexGroups.push(`(${regexGroup})`);
+    result.segments.push(segmentName);
+
+    return result;
+  }
 }
 
-function parseSegment(segment, index) {
-  if (segment === MATCH_ANY) {
-    return [index.toString(), ANY_VALID_SEGMENT];
+
+function parseSegment(segment, index, segments) {
+  if (segment === MATCH_ANY || segment === '') {
+    return [index.toString(), segments.length === 1 ? STR_REGEX_MATCH_ANY : ANY_VALID_SEGMENT];
   }
 
   if (VALID_SEGMENT.test(segment)) {
@@ -106,7 +144,7 @@ function parseSegmentOptions(segmentName, segmentOptions) {
       return [segmentName, options.join(OR_SIGN)];
     }
 
-    return new Error();
+    throw new Error();
   }
 
   throw new Error();

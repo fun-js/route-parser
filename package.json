@@ -51,5 +51,15 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
+  },
+  "nyc": {
+    "lines": 20,
+    "statements": 20,
+    "functions": 20,
+    "branches": 20,
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
   }
 }
