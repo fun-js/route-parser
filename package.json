@@ -4,7 +4,7 @@
   "description": "Simple and fast functional route parser...",
   "main": "./src/index.js",
   "module": "./dist/index.js",
-  "repository": "git@github.com:MauroJr/functional-route-parser.git",
+  "repository": "git@github.com:fun-js/route-parser.git",
   "author": "Mauro Junior <mauropereirajr@gmail.com>",
   "license": "MIT",
   "publishConfig": {
