@@ -20,7 +20,7 @@ function RouteParser(route = '') {
 
   return Object.freeze({
 
-    parse(route = '') {
+    match(route = '') {
       const regexResult = regex.exec(route);
 
       if (regexResult === null) {

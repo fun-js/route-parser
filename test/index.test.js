@@ -10,7 +10,7 @@ describe('Route Parser', function () {
     it('should create a route parser with `parse and encode` methods', function () {
       const route = RouteParser('my/test/:route');
 
-      expect(route.parse).to.be.a('function');
+      expect(route.match).to.be.a('function');
       expect(route.encode).to.be.a('function');
     });
   });
@@ -18,7 +18,7 @@ describe('Route Parser', function () {
   describe('Route parsing...', () => {
     it('should parse a valid route', function () {
       const route = RouteParser('my/test/:route');
-      const parsedRoute = route.parse('my/test/my-route');
+      const parsedRoute = route.match('my/test/my-route');
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({ route: 'my-route' });
@@ -26,7 +26,7 @@ describe('Route Parser', function () {
 
     it('should not parse a invalid route string', function () {
       const route = RouteParser('my/test/:route');
-      const parsedRoute = route.parse('my/testInvalid/my-route');
+      const parsedRoute = route.match('my/testInvalid/my-route');
 
       expect(parsedRoute).to.be.false;
     });
@@ -52,7 +52,7 @@ describe('Route Parser', function () {
 
     it('should parse a valid route with options', function () {
       const route = RouteParser('my/:action=(test|build)/:route');
-      const parsedRoute = route.parse('my/test/my-route');
+      const parsedRoute = route.match('my/test/my-route');
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({ action: 'test', route: 'my-route' });
@@ -60,7 +60,7 @@ describe('Route Parser', function () {
 
     it('should parse a valid route with splat operator', function () {
       const route = RouteParser('*/:action=(test|build)/:route');
-      const parsedRoute = route.parse('my/test/my-route');
+      const parsedRoute = route.match('my/test/my-route');
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({
@@ -72,7 +72,7 @@ describe('Route Parser', function () {
 
     it('should ignore starting and trailing slashes on parser creation', function () {
       const route = RouteParser('/*/:action=(test|build)/:route/');
-      const parsedRoute = route.parse('my/test/my-route');
+      const parsedRoute = route.match('my/test/my-route');
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({
@@ -84,7 +84,7 @@ describe('Route Parser', function () {
 
     it('should ignore starting and trailing slashes on parsing the route', function () {
       const route = RouteParser('*/:action=(test|build)/:route');
-      const parsedRoute = route.parse('/my/test/my-route/');
+      const parsedRoute = route.match('/my/test/my-route/');
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({
@@ -97,17 +97,17 @@ describe('Route Parser', function () {
     it('should match any route with delimeter operator', function () {
       const route = RouteParser('/');
 
-      expect(route.parse('/my/test/my-route/')).not.to.be.false;
-      expect(route.parse('my/test')).not.to.be.false;
-      expect(route.parse('test')).not.to.be.false;
+      expect(route.match('/my/test/my-route/')).not.to.be.false;
+      expect(route.match('my/test')).not.to.be.false;
+      expect(route.match('test')).not.to.be.false;
     });
 
     it('should match any route with splat operator', function () {
       const route = RouteParser('*');
 
-      expect(route.parse('/my/test/my-route/')).not.to.be.false;
-      expect(route.parse('my/test')).not.to.be.false;
-      expect(route.parse('test')).not.to.be.false;
+      expect(route.match('/my/test/my-route/')).not.to.be.false;
+      expect(route.match('my/test')).not.to.be.false;
+      expect(route.match('test')).not.to.be.false;
     });
   });
 });

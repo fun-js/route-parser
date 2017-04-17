@@ -1,6 +1,6 @@
 {
   "name": "@funjs/route-parser",
-  "version": "0.0.0-development",
+  "version": "1.2.0",
   "description": "Simple and fast functional route parser...",
   "main": "./src/index.js",
   "module": "./dist/index.js",
