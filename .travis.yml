@@ -18,11 +18,3 @@ after_success:
 branches:
   only:
   - master
-deploy:
-  provider: npm
-  email: mauropereirajr@gmail.com
-  api_key:
-    secure: Rk0ewfC24yvtWSz1SZC7gsVOz7Z7nvkZ/oojutq5zEMTWP4CWaII4T/dFoevJi9gnU4ukReVqtIGkh0NA+mXLCE/BGyVjgWCmBNjzy/X/knTTwPlBzPqcQuZ+qgmivr+lwwrKa9ME2PE/LdI61IIsC0U/BaQc5IhTlZCLX5sTejIm5u0nT2q1+cpti5YYlOuvTeRKuoz8GKzr+6WveXkO1SzaaFrhHMoeHgC/CkktlRjnde/8nzFsRdPI3KTT+fb73Bw6KdtkLUIFpOiwXvvjSrCcHOjCi8RyhpbDBLs0nV7au0Y6qg7N2l3CXw6I6oL/ZsDpoPUte5CEF06tm032s33Fpt+t7fphhhaANWuXyl9+852TWhD8MJgT1sFEs5fU4g+mGAkalNFcaK94Fs4xBnp2szCy2WB+8XcGygHEgvnXY0dahvIred/D+GmPYGXXEI1fResUvN6sWivf6OfIX1gmQVRnTKeM2hp+YxqrQLBMgVf7o26skUSf+mfCIJnS/3l9DLj4KnVctxXANYfOov4iyfoM24p5ybUfN0IZD/n1kBHbnWf5h5y5RLvAItAMht9QSHT3+GYzPyqUDXXDgk1ExkvOEpyrOWHdLSBJsX6UxnAApkpGJczpMetsBvsTFgo7qGQGFfXs9AqxtHQ/JkUBhRNaQ1KJhm8yLojnps=
-  on:
-    tags: true
-    repo: fun-js/route-parser
