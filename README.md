@@ -1,6 +1,9 @@
-[![Build Status](https://travis-ci.org/fun-js/route-parser.png?branch=master)](https://travis-ci.org/fun-js/route-parser)
+[![travis build](https://img.shields.io/travis/fun-js/route-parser.svg?style=flat)](https://travis-ci.org/fun-js/route-parser)
 [![Dependency Status](https://david-dm.org/fun-js/route-parser.svg?theme=shields.io)](https://david-dm.org/fun-js/route-parser)
 [![devDependency Status](https://david-dm.org/fun-js/route-parser/dev-status.svg?theme=shields.io)](https://david-dm.org/fun-js/route-parser#info=devDependencies)
+[![Codecov](https://img.shields.io/codecov/c/github/fun-js/route-parser.svg)]()(https://codecov.io/github/fun-js/route-parser)
+[![MIT License](https://img.shields.io/npm/l/starwars-names.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat)](https://github.com/semantic-release/semantic-release)
 
 ## What is it?
 
