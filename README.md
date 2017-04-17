@@ -28,7 +28,7 @@ route.match('/books/programming/JavaScript-Good-Parts'); // { section: 'programm
 | --------------- | -------- |
 | `:name`         |  a named parameter to capture from the route up to `/`, `?`, or end of string  |
 | `*`        |  a splat to capture from the route up to `?` or end of string |
-| `:name=(a|b|c)`            |  a named parameter group that doesn't have to be part of the query. Can contain nested optional groups, params, and splats
+| `:name=(a|b|c)`  |  a named parameter group that doesn't have to be part of the query. Can contain nested optional groups, params, and splats
 | anything else   | free form literals |
 
 Some examples:
