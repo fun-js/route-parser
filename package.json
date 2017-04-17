@@ -7,6 +7,16 @@
   "repository": "git@github.com:MauroJr/functional-route-parser.git",
   "author": "Mauro Junior <mauropereirajr@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "router",
+    "functional",
+    "url",
+    "matching",
+    "routing",
+    "route",
+    "regex",
+    "match"
+  ],
   "scripts": {
     "start": "npm run test",
     "commit": "git add -A && git-cz && git push",
