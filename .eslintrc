@@ -23,7 +23,7 @@
     "no-underscore-dangle": 0,
     "no-shadow": 0,
     "no-param-reassign": ["error", { "props": false }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "*.config.js"]}],
     "consistent-return": 0,
     "no-unused-vars": ["error", { "argsIgnorePattern": "^next" }],
     "strict": ["error", "safe"],
