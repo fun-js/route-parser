@@ -39,7 +39,7 @@
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-loader": "^6.3.2",
-    "babel-preset-latest": "^6.22.0",
+    "babel-preset-env": "^1.4.0",
     "chai": "^3.5.0",
     "codecov": "^2.1.0",
     "commitizen": "^2.9.6",
@@ -74,5 +74,6 @@
       "lcov",
       "text-summary"
     ]
-  }
+  },
+  "dependencies": {}
 }
