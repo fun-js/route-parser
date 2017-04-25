@@ -7,11 +7,30 @@ const RouteParser = require('../src');
 /* eslint prefer-arrow-callback: 0, func-names: 0, no-unused-expressions: 0 */
 describe('Route Parser', function () {
   describe('Create a Route', function () {
-    it('should create a route parser with `parse and encode` methods', function () {
+    it('should create a route parser with `match and encode` methods', function () {
       const route = RouteParser('my/test/:route');
 
       expect(route.match).to.be.a('function');
-      expect(route.encode).to.be.a('function');
+    });
+
+    it('should create a route parser with `custom delimiter`', function () {
+      const route = RouteParser('my-test-:route', { delimiter: '-' });
+
+      expect(route.match).to.be.a('function');
+    });
+
+    it('should throw a error on create a parse with invalid `custom delimiter`', function () {
+      expect(() => RouteParser('my/test/:route', { delimiter: ':' })).to.throw(/Option: `delimiter`/);
+    });
+
+    it('should create a route parser with `custom named segment`', function () {
+      const route = RouteParser('my/test/-route', { namedSegment: '-' });
+
+      expect(route.match).to.be.a('function');
+    });
+
+    it('should throw a error on create a parse with invalid `custom named segment`', function () {
+      expect(() => RouteParser('my/test/:route', { namedSegment: '/' })).to.throw(/Option: `namedSegments`/);
     });
   });
 
@@ -22,6 +41,22 @@ describe('Route Parser', function () {
 
       expect(parsedRoute).to.be.a('object');
       expect(parsedRoute).to.eql({ route: 'my-route' });
+    });
+
+    it('should parse a valid route with custom delimiter', function () {
+      const route = RouteParser('my-test-:route', { delimiter: '-' });
+      const parsedRoute = route.match('my-test-route');
+
+      expect(parsedRoute).to.be.a('object');
+      expect(parsedRoute).to.eql({ route: 'route' });
+    });
+
+    it('should parse a valid route with custom named segment', function () {
+      const route = RouteParser('my/test/$route', { namedSegment: '$' });
+      const parsedRoute = route.match('my/test/route');
+
+      expect(parsedRoute).to.be.a('object');
+      expect(parsedRoute).to.eql({ route: 'route' });
     });
 
     it('should not parse a invalid route string', function () {

@@ -25,6 +25,16 @@ const Router = require('@funjs/route-parser');
 const route = Router('/books/:section=(programming|romance|horror)/:title');
 route.match('/books/programming/JavaScript-Good-Parts'); // { section: 'programming', title: 'JavaScript-Good-Parts' }
 ```
+
+## How do I customize delimiters and named segment?
+
+```javascript
+const Router = require('@funjs/route-parser', { delimiter: ':', namedSegment: '$' });
+const route = Router('books:$section=(programming|romance|horror):$title');
+route.match('books:programming:JavaScript-Good-Parts'); // { section: 'programming', title: 'JavaScript-Good-Parts' }
+```
+
+
 ## What can I use in my routes?
 
 | Example         | Description          |
@@ -62,6 +72,6 @@ node index.js
 - [x] Named parameters
 - [x] named parameters Options
 - [ ] Reverse Matching
-- [ ] Customizables delimeters and operators
+- [x] Customizables delimiters and named segments
 - [ ] Querystrings
 
