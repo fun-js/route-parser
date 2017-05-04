@@ -8,15 +8,17 @@ const RouteParser = require('../src');
 describe('Route Parser', function () {
   describe('Create a Route', function () {
     it('should create a route parser with `match and encode` methods', function () {
-      const route = RouteParser('my/test/:route');
+      const router = RouteParser('my/test/:route');
 
-      expect(route.match).to.be.a('function');
+      expect(router.match).to.be.a('function');
+      expect(router.route).to.eql('my/test/:route');
     });
 
     it('should create a route parser with `custom delimiter`', function () {
-      const route = RouteParser('my-test-:route', { delimiter: '-' });
+      const router = RouteParser('my-test-:route', { delimiter: '-' });
 
-      expect(route.match).to.be.a('function');
+      expect(router.match).to.be.a('function');
+      expect(router.route).to.eql('my-test-:route');
     });
 
     it('should throw a error on create a parse with invalid `custom delimiter`', function () {
@@ -24,9 +26,10 @@ describe('Route Parser', function () {
     });
 
     it('should create a route parser with `custom named segment`', function () {
-      const route = RouteParser('my/test/-route', { namedSegment: '-' });
+      const router = RouteParser('my/test/-route', { namedSegment: '-' });
 
-      expect(route.match).to.be.a('function');
+      expect(router.match).to.be.a('function');
+      expect(router.route).to.eql('my/test/-route');
     });
 
     it('should throw a error on create a parse with invalid `custom named segment`', function () {
