@@ -25,6 +25,8 @@ function RouteParser(route = '', options = {}) {
 
   return Object.freeze({
 
+    route,
+
     match(route = '') {
       const regexResult = regex.exec(route);
 
