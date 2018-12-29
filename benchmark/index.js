@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint import/no-unresolved: 0*/
+/* eslint import/no-unresolved: 0 */
 const Benchmark = require('benchmark');
 const Route = require('route-parser');
 const FnRoute = require('../src');

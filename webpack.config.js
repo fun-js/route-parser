@@ -1,8 +1,10 @@
 'use strict';
 
 const BabiliPlugin = require('babili-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { join } = require('path');
+
+const copyTypings = new CopyWebpackPlugin(['src/index.d.ts']);
 
 const isProduction = process.env.NODE_ENV === 'production';
 const include = join(__dirname, 'src');
@@ -20,5 +22,7 @@ module.exports = {
       { test: /\.js$/, loader: 'babel-loader', include }
     ]
   },
-  plugins: isProduction ? [new BabiliPlugin({}, { comments: false })] : []
+  plugins: isProduction
+    ? [new BabiliPlugin({}, { comments: false }), copyTypings]
+    : [copyTypings]
 };
